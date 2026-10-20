@@ -10,9 +10,10 @@ public class Main {
 
         List<String> todo = new ArrayList();
 
+        String test = "test";
         todo.add("go to the gym");
-        todo.add("go to the gym");
-        todo.add("go to the gym");
+        todo.add(test);
+
 
         System.out.println(todo);
 
@@ -23,11 +24,14 @@ public class Main {
                     "3: fjern fra listen \n" +
                     "4: fjern fra listen");
 
-            switch (sc.nextInt()) {
+            int valg = Integer.parseInt(sc.nextLine());
+
+            switch (valg) {
                 case 1:
                     System.out.println(todo);
                     break;
                 case 2:
+
                     break;
                 case 3:
                     break;
@@ -36,4 +40,5 @@ public class Main {
             }
         }
     }
+
 }
