@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,10 +20,11 @@ public class Main {
 
         while (kjorer) {
             // TODO: legg til en sjekk som validerer om et nummer ble skrevet
-            System.out.println("1: Vis listen \n" +
-                    "2: Legg til i listen \n" +
-                    "3: fjern fra listen \n" +
-                    "4: fjern fra listen");
+            System.out.println("1: Show the list \n" +
+                    "2: Add to the list \n" +
+                    "3: remove from list \n" +
+                    "4: End program");
+            System.out.print("Enter your choice: ");
 
             int valg = Integer.parseInt(sc.nextLine());
 
@@ -31,11 +33,19 @@ public class Main {
                     System.out.println(todo);
                     break;
                 case 2:
-
+                    System.out.println("Write a goal in your list: ");
+                    String goal = sc.nextLine();
+                    todo.add(goal);
+                    System.out.println(todo);
                     break;
                 case 3:
+                    System.out.print("Write which number iteam you want to remove: ");
+                    int num = Integer.parseInt(sc.nextLine());
+                    todo.remove(num - 1);
+                    System.out.println(todo);
                     break;
                 case 4:
+                    kjorer = false;
                     break;
             }
         }
