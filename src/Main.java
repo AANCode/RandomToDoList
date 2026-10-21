@@ -30,7 +30,7 @@ public class Main {
 
             switch (valg) {
                 case 1:
-                    System.out.println(todo);
+                    printList(todo);
                     break;
                 case 2:
                     System.out.println("Write a goal in your list: ");
@@ -49,6 +49,12 @@ public class Main {
                     break;
             }
         }
+
     }
 
+    private static void printList(List<String> todo) {
+        for (int i = 0; i < todo.size(); i++) {
+            System.out.println(todo.get(i));
+        }
+    }
 }
