@@ -20,11 +20,13 @@ public class Main {
 
         while (kjorer) {
             // TODO: legg til en sjekk som validerer om et nummer ble skrevet
-            System.out.println("1: Show the list \n" +
+            /*System.out.println("1: Show the list \n" +
                     "2: Add to the list \n" +
                     "3: remove from list \n" +
                     "4: End program");
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice: ");*/
+
+            printMenu();
 
             int valg = Integer.parseInt(sc.nextLine());
 
@@ -33,16 +35,21 @@ public class Main {
                     printList(todo);
                     break;
                 case 2:
-                    System.out.println("Write a goal in your list: ");
+                    /*System.out.println("Write a goal in your list: ");
                     String goal = sc.nextLine();
                     todo.add(goal);
-                    System.out.println(todo);
+                    System.out.println(todo);*/
+
+                    addIteam(todo, sc);
                     break;
                 case 3:
-                    System.out.print("Write which number iteam you want to remove: ");
+                    /*System.out.print("Write which number iteam you want to remove: ");
                     int num = Integer.parseInt(sc.nextLine());
                     todo.remove(num - 1);
-                    System.out.println(todo);
+                    System.out.println(todo);**/
+
+                    deleteIteam(todo, sc);
+
                     break;
                 case 4:
                     kjorer = false;
@@ -56,5 +63,25 @@ public class Main {
         for (int i = 0; i < todo.size(); i++) {
             System.out.println(todo.get(i));
         }
+    }
+
+    private static void addIteam (List<String> todo, Scanner sc) {
+        System.out.println("What do you want to add to?: ");
+        String goal =  sc.nextLine();
+        todo.add(goal);
+    }
+
+    private static void deleteIteam(List<String> todo, Scanner sc){
+        System.out.println("What number is the iteam you want to delete?: ");
+        int num = Integer.parseInt(sc.nextLine());
+        todo.remove(num - 1);
+    }
+
+    private static void printMenu() {
+        System.out.println("1: Show the list \n" +
+                "2: Add to the list \n" +
+                "3: remove from list \n" +
+                "4: End program");
+        System.out.print("Enter your choice: ");
     }
 }
