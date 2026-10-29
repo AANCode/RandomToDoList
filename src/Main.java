@@ -9,11 +9,9 @@ public class Main {
         boolean kjorer = true;
         Scanner sc  = new Scanner(System.in);
 
-        List<String> todo = new ArrayList();
+        List<Task> todo = new ArrayList();
 
-        String test = "test";
-        todo.add("go to the gym");
-        todo.add(test);
+        Task task1 = new Task("Gå gym", "dra til gymmen idiot");
 
 
         System.out.println(todo);
@@ -59,19 +57,25 @@ public class Main {
 
     }
 
-    private static void printList(List<String> todo) {
+    private static void printList(List<Task> todo) {
         for (int i = 0; i < todo.size(); i++) {
             System.out.println(todo.get(i));
         }
     }
 
-    private static void addIteam (List<String> todo, Scanner sc) {
-        System.out.println("What do you want to add to?: ");
-        String goal =  sc.nextLine();
-        todo.add(goal);
+    private static void addIteam (List<Task> todo, Scanner sc) {
+        System.out.print("Enter task tittle: ");
+        String title = sc.nextLine();
+
+        System.out.print("Enter task description: ");
+        String description = sc.nextLine();
+
+        Task newTask = new Task(title, description);
+
+        todo.add(newTask);
     }
 
-    private static void deleteIteam(List<String> todo, Scanner sc){
+    private static void deleteIteam(List<Task> todo, Scanner sc){
         System.out.println("What number is the iteam you want to delete?: ");
         int num = Integer.parseInt(sc.nextLine());
         todo.remove(num - 1);
