@@ -76,9 +76,8 @@ public class Main {
     }
 
     private static void deleteIteam(List<Task> todo, Scanner sc){
-        System.out.println("What number is the iteam you want to delete?: ");
-        int num = Integer.parseInt(sc.nextLine());
-        todo.remove(num - 1);
+        System.out.println("What number the id of the iteam you want to delete?: ");
+        int id = Integer.parseInt(sc.nextLine());
     }
 
     private static void printMenu() {
