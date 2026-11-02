@@ -70,4 +70,8 @@ public class Main {
                 "4: End program");
         System.out.print("Enter your choice: ");
     }
+
+    public static void saveTasks(List<Task> todo){
+
+    }
 }
