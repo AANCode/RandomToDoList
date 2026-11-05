@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,26 +12,39 @@ public class Main {
 
 
         while (kjorer) {
-            // TODO: legg til en sjekk som validerer om et nummer ble skrevet
             printMenu();
 
-            int valg = Integer.parseInt(sc.nextLine());
-            switch (valg) {
-                case 1:
-                    printList();
-                    break;
-                case 2:
-                    addIteam(sc);
+            try {
+                int valg = Integer.parseInt(sc.nextLine());
+                switch (valg) {
+                    case 1:
+                        printList();
+                        break;
+                    case 2:
+                        addIteam(sc);
 
-                    break;
-                case 3:
-                    deleteIteam(sc);
+                        break;
+                    case 3:
+                        deleteIteam(sc);
 
-                    break;
-                case 4:
-                    kjorer = false;
-                    break;
+                        break;
+                    case 4:
+                        kjorer = false;
+                        break;
+
+                    default:
+                        System.out.println("############## \n" +
+                                            "Invalid input \n" +
+                                            "##############");
+                        break;
+                }
             }
+            catch (NumberFormatException e) {
+                System.out.println("######################### \n" +
+                                    "Invalid input, Enter a Number!! \n" +
+                                    "#########################");
+            }
+
         }
 
     }
@@ -41,9 +55,10 @@ public class Main {
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
             }
-        }
-        catch (IOException e) {
-            System.out.println("Error reading file");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: finner ikke fil: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error: Not tasks yet");
         }
     }
 
@@ -68,35 +83,66 @@ public class Main {
     }
 
     private static void deleteIteam(Scanner sc){
+        List<String> lineList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("task.txt"))) {
             String line;
-            List<String> lineList = new ArrayList<>();
+
             while ((line= br.readLine()) != null) {
                 lineList.add(line);
             }
-            for (int i=0; i<lineList.size(); i++) {
-                String text = lineList.get(i);
-                int start = text.indexOf("Title: ");
-                int end = text.indexOf(", Description: ");
-                String printText = text.substring(start + 7, end);
-
-                System.out.println(i+1+": "+printText);
+            if (lineList.size() == 0) {
+                System.out.println("The file is Empty and there are no tasks to delete");
+                return;
             }
-            System.out.println("What number the id of the iteam you want to deleste?: ");
-            int id = Integer.parseInt(sc.nextLine());
+            else {
+                for (int i=0; i<lineList.size(); i++) {
+                    String text = lineList.get(i);
+                    int start = text.indexOf("Title: ");
+                    int end = text.indexOf(", Description: ");
+                    String printText = text.substring(start + 7, end);
 
-            lineList.remove(id-1);
+                    System.out.println(i+1+": "+printText);
+                }
+                System.out.println("What number the id of the iteam you want to delete?: ");
+                int id = Integer.parseInt(sc.nextLine());
+
+                lineList.remove(id-1);
+            }
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Error: finner ikke fil: " + e.getMessage());
         }
         catch (IOException e) {
-            System.out.println("Error reading file");
+            System.out.println("Error: Not tasks yet");
+            return;
+        }
+        catch (NumberFormatException e) {
+            System.out.println("please enter a number " + e.getMessage());
+            return;
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("please enter a number between 1 and " + lineList.size() + "!");
+            return;
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("task.txt"))) {
+            for (int i = 0; i < lineList.size(); i++) {
+                bw.write(lineList.get(i));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error Writing to file "+ e.getMessage());
         }
     }
 
     private static void printMenu() {
-        System.out.println("1: Show the list \n" +
+        System.out.println("######################### \n" +
+                "1: Show the list \n" +
                 "2: Add to the list \n" +
                 "3: remove from list \n" +
-                "4: End program");
+                "4: End program \n" +
+                "######################### \n");
         System.out.print("Enter your choice: ");
     }
 
